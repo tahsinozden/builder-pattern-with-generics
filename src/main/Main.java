@@ -1,9 +1,13 @@
-package com.company;
+package main;
+
+import com.company.Employee;
+import com.company.OrdinaryPerson;
+import com.company.Person;
 
 public class Main {
 
     public static void main(String[] args) {
-	    Employee employee = new Employee.EmployeeBuilder()
+        Person employee = new Employee.EmployeeBuilder()
                 .company("X")
                 .name("MasterOf")
                 .surname("Disaster")
@@ -11,7 +15,7 @@ public class Main {
 
 	    System.out.println(employee);
 
-	    OrdinaryPerson ordinaryPerson = new OrdinaryPerson.OrdinaryPersonBuilder()
+        Person ordinaryPerson = new OrdinaryPerson.OrdinaryPersonBuilder()
                 .name("John")
                 .surname("Doe")
                 .build();

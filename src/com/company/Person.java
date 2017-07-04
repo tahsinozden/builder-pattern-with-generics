@@ -1,11 +1,10 @@
 package com.company;
 
 public abstract class Person {
-    protected String name;
-    protected String surname;
+    private String name;
+    private String surname;
 
-    protected Person() {}
-    protected Person(Builder builder) {
+    Person(Builder builder) {
         this.name = builder.name;
         this.surname = builder.surname;
     }
@@ -19,18 +18,41 @@ public abstract class Person {
     }
 
     @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Person person = (Person) o;
+
+        if (name != null ? !name.equals(person.name) : person.name != null) {
+            return false;
+        }
+        return surname != null ? surname.equals(person.surname) : person.surname == null;
     }
 
-    public static abstract class Builder<T, K> {
-        protected String name;
-        protected String surname;
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        return result;
+    }
 
-        public abstract T build();
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+                ", surname='" + surname;
+    }
+
+    @SuppressWarnings("unchecked")
+    abstract static class Builder<T, K> {
+        private String name;
+        private String surname;
+
+        abstract T build();
 
         public K name(String name) {
             this.name = name;
